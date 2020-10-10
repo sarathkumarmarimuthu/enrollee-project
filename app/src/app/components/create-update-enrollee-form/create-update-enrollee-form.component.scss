@@ -1,0 +1,40 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    > :nth-child(n):not(:last-child) {
+      margin-bottom: 20px;
+    }
+    .row {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+  
+  .title-spacer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+  }
+
+  .actions-btn {
+    display: flex;
+    justify-content: flex-end;
+    > :nth-child(n) {
+      margin: 0 10px 10px 0;
+    }
+  }
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .status {
+    text-align: center;
+    margin-top: 15px;
+    .mat-slide-toggle {
+      margin: 0px 10px;
+    }
+  }
+
+  
+

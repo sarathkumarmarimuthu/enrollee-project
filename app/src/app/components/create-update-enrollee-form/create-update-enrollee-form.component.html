@@ -1,0 +1,66 @@
+<div class="content-container">
+    <div class="title-spacer">
+      <span class="title">Update Enrollee</span>
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <form
+      *ngIf="enrolleeForm"
+      [formGroup]="enrolleeForm"
+      (ngSubmit)="onSubmit()"
+    >
+    <div fxLayout="row" fxLayout.xs="column" >
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="ID"
+            formControlName="id"
+            [readonly]="true"
+          />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" >
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Name"
+            formControlName="name"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+        <div class="mat-form-field-container status" fxFlex="30">
+          <span>INACTIVE</span>
+  
+          <mat-slide-toggle
+            formControlName="active"
+          ></mat-slide-toggle>
+  
+          <span>ACTIVE</span>
+        </div> 
+        <mat-form-field fxFlex="30">
+            <input
+              matInput
+              placeholder="Date Of Birth" 
+              formControlName="dateOfBirth"
+              [readonly]="true"
+            />
+          </mat-form-field>
+      </div>
+      <div class="actions-btn">
+        <button mat-raised-button type="button" mat-dialog-close>
+         CANCEL
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          [disabled]="!enrolleeForm.valid"
+        >UPDATE
+        </button>
+      </div>
+    </form>
+  </div>
+  
