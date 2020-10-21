@@ -1,7 +1,3 @@
-  <!-- To create Enrolle -->
-<button mat-fab class="float-btn" color="accent" >
-    <mat-icon>add</mat-icon>
-  </button>
 
   <!-- To filter by value across table -->
 <mat-form-field>
@@ -14,7 +10,7 @@
       <!-- Actions Column -->
       <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef > Actions </th>
-            <td mat-cell *matCellDef="let row" > <mat-icon class="space" matTooltip="edit" (click)="onEnrolleeUpdate(row.id)">edit</mat-icon><mat-icon class="space">delete</mat-icon> </td>
+            <td mat-cell *matCellDef="let row" > <mat-icon class="space" matTooltip="edit" (click)="onEnrolleeUpdate(row.id)">edit</mat-icon></td>
        </ng-container>
 
       <!-- ID Column -->
@@ -31,8 +27,9 @@
   
       <!-- active Column -->
       <ng-container matColumnDef="active">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-        <td mat-cell *matCellDef="let row"> {{row.active ? 'ACTIVE' : 'INACTIVE'}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+        <td mat-cell *matCellDef="let row"> 
+        <mat-icon [ngClass]="row.active ? 'active' : 'inactive'">{{row.active ? 'check' : 'clear'}}</mat-icon></td>
       </ng-container>
  
      <!-- dateOfBirth Column -->
