@@ -1,14 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Enrollee } from '../../models/enrollee';
-import { EnrolleeService } from '../../services/enrollee.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Enrollee} from '../../models/enrollee';
+import {EnrolleeService} from '../../services/enrollee.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-update-enrollee-form',
   templateUrl: './create-update-enrollee-form.component.html',
-  styleUrls: ['./create-update-enrollee-form.component.scss']
+  styleUrls: ['./create-update-enrollee-form.component.scss'],
 })
 export class CreateUpdateEnrolleeFormComponent implements OnInit {
   enrolleeForm: FormGroup;
@@ -31,19 +31,24 @@ export class CreateUpdateEnrolleeFormComponent implements OnInit {
       id: [data.id],
       name: [data.name],
       active: [data.active],
-      dateOfBirth: [data.dateOfBirth]
+      dateOfBirth: [data.dateOfBirth],
     });
   }
 
+  // save enrollee details on form submission
   onSubmit() {
     this.enrolleeService.updateEnrollee(this.enrolleeForm.value).subscribe(
+      // this method will handle next case after successful subscription
       () => {
         this.notifyMessage('Updated Successfully!!', 'success');
       },
+      // this method will handle error case after exception
       () => {
         this.notifyMessage('Update failed!!', 'failure');
       }
     );
+    // close mat dialog after update action
+    this.dialogRef.close();
   }
 
   // notify user about update status using material snack bar
@@ -52,7 +57,7 @@ export class CreateUpdateEnrolleeFormComponent implements OnInit {
       duration: 1000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: messageColor
+      panelClass: messageColor,
     });
   }
 }
