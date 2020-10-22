@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Enrollee } from '../../models/enrollee';
-import { EnrolleeService } from '../../services/enrollee.service';
-import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
-import { CreateUpdateEnrolleeFormComponent } from '../create-update-enrollee-form/create-update-enrollee-form.component';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {Enrollee} from '../../models/enrollee';
+import {EnrolleeService} from '../../services/enrollee.service';
+import {MatSort} from '@angular/material/sort';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateUpdateEnrolleeFormComponent} from '../create-update-enrollee-form/create-update-enrollee-form.component';
 
 @Component({
   selector: 'app-list-enrollee',
@@ -36,6 +36,7 @@ export class ListEnrolleeComponent implements OnInit {
     await this.refresh();
   }
 
+  // Fetch all enrollee details to mat table with paginator & sorting injection
   refresh() {
     this.enrolleeService.getAllEnrollees().subscribe((enrollees) => {
       this.dataSource.data = enrollees;
@@ -44,18 +45,21 @@ export class ListEnrolleeComponent implements OnInit {
     });
   }
 
+  // filter table rows by entered value
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
 
+  // update enrollee by id
   onEnrolleeUpdate(id) {
     this.enrolleeService.getEnrolleeById(id).subscribe((enrollee) => {
       return this.openDialog(enrollee);
     });
   }
 
+  // mat dialog to update enrollee details by form
   async openDialog(data) {
     await this.dialog
       .open(CreateUpdateEnrolleeFormComponent, {
@@ -63,12 +67,17 @@ export class ListEnrolleeComponent implements OnInit {
         data,
       })
       .afterClosed()
-      .subscribe((result) => {
-        this.onDialogClosed(result);
-      });
+      .subscribe(
+        // next action to be performed after successful subscription
+        (result) => {
+          this.onDialogClosed(result);
+        }
+      );
   }
 
+  // refresh enrollee details table after the successful update
   onDialogClosed(reason: string) {
+    // condtion to  avoid refreshing enrollee details after update evict
     if (reason !== 'cancelled') {
       this.refresh();
     }
